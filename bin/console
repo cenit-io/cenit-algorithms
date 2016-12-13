@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'cenit/algorithms'
+
+require 'irb'
+IRB.start
