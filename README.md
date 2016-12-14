@@ -30,7 +30,7 @@ Cenit::Algorithms('Number Theory').factorial(5)  # 120
 Cenit::Algorithms('Number Theory').gcd(20, 15)   # 5
 ```
 
-Checkout more shared algorithms at https://cenit.io/algorithms
+Checkout more shared algorithms at https://cenit.io/algorithm
 
 Algorithms codes are loaded on demand and kept stored. If you want to reset your loaded algorithms then execute:
 
