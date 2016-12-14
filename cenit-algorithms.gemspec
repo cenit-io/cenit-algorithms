@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['macarci@gmail.com']
 
   spec.summary       = %q{Runs Cenit algorithms.}
-  spec.description       = %q{Run algorithms retrieving their codes from Cenit.}
-  spec.homepage      = 'https://github.com/macarci/cenit-algorithms'
+  spec.description   = %q{Run algorithms retrieving their codes from Cenit.}
+  spec.homepage      = 'https://github.com/cenit-io/cenit-algorithms'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
