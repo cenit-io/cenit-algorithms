@@ -1,6 +1,7 @@
 require 'cenit/algorithms/version'
-require 'cenit/config'
 require 'cenit/algorithms/namespace'
+require 'cenit/algorithms/api'
+require 'cenit/config'
 require 'httparty'
 
 module Cenit
@@ -58,18 +59,13 @@ module Cenit
         query = criteria.dup
         id = query.delete('id')
         id = query.delete(:id) || id
-        headers = { 'Content-Type' => 'application/json' }
-        if (token = Cenit.access_token) && (key = Cenit.access_key)
-          headers['X-User-Access-Key'] = key
-          headers['X-User-Access-Token'] = token
-        end
-        url = "#{Cenit.host}/api/v2/setup/algorithm"
+        url = Api.base_url
         if id
           url += "/#{id}"
           query = {}
         end
         query[:embedding] = 'snippet'
-        response = HTTParty.get url, { headers: headers, query: query }
+        response = HTTParty.get url, { headers: Api.headers, query: query }
         if response.code == 200
           json = JSON.parse(response.body)
           if id || json['count'] == 1

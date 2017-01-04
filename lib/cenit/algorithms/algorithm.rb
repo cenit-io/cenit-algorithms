@@ -1,5 +1,3 @@
-require 'cenit/algorithms/interpreter'
-
 module Cenit
   module Algorithms
     class Algorithm
@@ -52,7 +50,24 @@ module Cenit
       end
 
       def run(*args)
-        Interpreter.run(self, *args)
+        response = HTTParty.post Api.base_url(id: id, action: :run), {
+          headers: Api.headers,
+          body: args.to_json
+        }
+        if response.code == 200
+          execution = JSON.parse(response.body)
+          until %w(completed failed broken).include?(execution['status'])
+            sleep 1
+            response = HTTParty.get Api.base_url(model: 'execution', id: execution['id']), {
+              headers: Api.headers
+            }
+            fail response.to_json unless response.code == 200
+            execution = JSON.parse(response.body)
+          end
+          execution['attachment_content'] || fail("Error running #{namespace} | #{name}")
+        else
+          fail response.to_json
+        end
       end
     end
   end
